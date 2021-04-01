@@ -7,3 +7,6 @@ class Table(object):
         self.sysFields(tbl)
         tbl.column('data',dtype='D',name_long='data_mov')
         tbl.column('descrizione',name_long='descrizione')
+ 
+                              
+                                               
