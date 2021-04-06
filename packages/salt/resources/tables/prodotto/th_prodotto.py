@@ -10,9 +10,9 @@ class View(BaseComponent):
         r = struct.view().rows()
         r.fieldcell('cod',width='4em')
         r.fieldcell('descrizione',width='6em')
-        r.fieldcell('tot_carico_prod')
-        r.fieldcell('tot_scarico_prod')
-        r.fieldcell('rimanenza_prod',width='10em')
+        r.fieldcell('tot_carico_prod', totalize=True)
+        r.fieldcell('tot_scarico_prod', totalize=True)
+        r.fieldcell('rimanenza_prod',width='10em', totalize=True)
         
     def th_order(self):
         return 'cod'

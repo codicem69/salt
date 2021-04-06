@@ -17,4 +17,4 @@ class Table(object):
                                                   where="$prodotto_id=#THIS.id AND @tipomov_id.cod='s'"),
                                                dtype='N',name_long='Tot.Scarico Prod.')
         
-        tbl.formulaColumn('rimanenza_prod',"coalesce($tot_carico_prod,0) + coalesce($tot_scarico_prod,0)")
+        tbl.formulaColumn('rimanenza_prod',"coalesce($tot_carico_prod,0) + coalesce($tot_scarico_prod,0)",dtype='N')

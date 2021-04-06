@@ -28,6 +28,43 @@ class View(BaseComponent):
     def th_top_toolbarsuperiore(self, top):
         top.slotToolbar('*,sections@prodotto_id,*', childname='superiore', _position='<bar')    
 
+class ViewMovimentiProd(BaseComponent):
+
+    def th_struct(self,struct):
+        r = struct.view().rows()
+        r.fieldcell('data')
+        r.fieldcell('prodotto_id')
+        r.fieldcell('quantita',width='7em', totalize=True)
+        r.fieldcell('movim_id')
+        r.fieldcell('movim_carico', totalize=True)
+        r.fieldcell('movim_scarico', totalize=True)
+        #r.fieldcell('somma', totalize=True)
+        
+    def th_order(self):
+        return 'data'
+
+    def th_query(self):
+        return dict(column='@movim_id.data', op='contains', val='', runOnStart=True)
+    
+    #def th_query(self):
+     #   return dict(column='prodotto_id', op='contains', val='')
+    
+    def th_options(self):
+        return dict(widget='dialog', readOnly=True) 
+    
+    def th_top_toolbarsuperiore(self, top):
+        top.slotToolbar('*,sections@prodotto_id,*', childname='superiore', _position='<bar')   
+
+    #def th_queryBySample(self):
+    #    return dict(fields=[dict(field='@movim_id.data', lbl='data_mov',width='10em'),
+    #                        dict(field='@movim_id.descrizione', lbl='descrizione',width='10em')],
+    #                        cols=2)
+
+    def th_queryBySample(self):
+        return dict(fields=[dict(field='@movim_id.data', lbl='data_mov',width='10em'),
+                            dict(field='@movim_id.descrizione', lbl='descrizione',width='10em')],
+                            cols=2, isDefault=True)                        
+
 class ViewFromRighe(BaseComponent):
 
     def th_struct(self, struct):
