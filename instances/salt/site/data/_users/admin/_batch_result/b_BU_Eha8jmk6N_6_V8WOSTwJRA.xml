@@ -1,0 +1,9 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<GenRoBag><title>Dump all</title>
+<batch_id>BU_Eha8jmk6N_6_V8WOSTwJRA</batch_id>
+<owner_page_id>wSYkBWvAOoiCBxIJVxiaOg</owner_page_id>
+<note _T="NN"></note>
+<start_ts _T="DH">2021-09-02T16:26:50.786629+02:00</start_ts>
+<end_ts _T="DH">2021-09-02T16:26:50.975376+02:00</end_ts>
+<time_delta>0:00:00</time_delta>
+<result url="http://192.168.1.35:8081/_storage/site/maintenance/backups/salt.zip">Dump complete</result></GenRoBag>
