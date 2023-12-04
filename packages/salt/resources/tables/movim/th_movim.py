@@ -29,13 +29,13 @@ class Form(BaseComponent):
     def movimTestata(self, pane):
         fb = pane.formbuilder(cols=2, border_spacing='4px')
         fb.field('data')
-        fb.field('descrizione',validate_notnull=True)
+        fb.field('descrizione',validate_notnull=True,tag='comboBox', width='25em')
 
     #def movRighe(self, pane):
      #   pane.inlineTableHandler(relation='@righemov', viewResource='ViewFromRighe', picker='movim_id')
  
     def movRighe(self, pane):
         pane.inlineTableHandler(relation='@righemov', viewResource='ViewFromRighe',
-                                picker='movim_id')
+                                picker='prodotto_id')
     def th_options(self):
         return dict(dialog_height='400px', dialog_width='600px' )
