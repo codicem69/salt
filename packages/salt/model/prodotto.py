@@ -9,12 +9,12 @@ class Table(object):
         tbl.column('descrizione',name_long='descrizione')
         tbl.formulaColumn('tot_carico_prod',select=dict(table='salt.movim_righe',
                                                   columns='SUM($quantita)',
-                                                  where="$prodotto_id=#THIS.id AND @tipomov_id.cod='c'"),
+                                                  where="$prodotto_id=#THIS.id AND @tipomov_cod.cod='c'"),
                                                dtype='N',name_long='Tot.Carico Prod.')
         
         tbl.formulaColumn('tot_scarico_prod',select=dict(table='salt.movim_righe',
                                                   columns='SUM($quantita)',
-                                                  where="$prodotto_id=#THIS.id AND @tipomov_id.cod='s'"),
+                                                  where="$prodotto_id=#THIS.id AND @tipomov_cod.cod='s'"),
                                                dtype='N',name_long='Tot.Scarico Prod.')
         
         tbl.formulaColumn('rimanenza_prod',"coalesce($tot_carico_prod,0) + coalesce($tot_scarico_prod,0)",dtype='N')
