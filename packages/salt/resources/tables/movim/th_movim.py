@@ -30,12 +30,17 @@ class Form(BaseComponent):
         fb = pane.formbuilder(cols=2, border_spacing='4px')
         fb.field('data')
         fb.field('descrizione',validate_notnull=True,tag='comboBox', width='25em')
-
+        
     #def movRighe(self, pane):
      #   pane.inlineTableHandler(relation='@righemov', viewResource='ViewFromRighe', picker='movim_id')
  
     def movRighe(self, pane):
         pane.inlineTableHandler(relation='@righemov', viewResource='ViewFromRighe',
                                 picker='prodotto_id')
-    def th_options(self):
-        return dict(dialog_height='400px', dialog_width='600px' )
+   #def th_options(self):
+   #    return dict(dialog_height='400px', dialog_width='600px', defaultPrompt=dict(title='Nuovo movimento', fields=self.newRecParameters(),
+   #                doSave=True))
+
+   #def newRecParameters(self):
+   #    return [dict(value='^.tipo_mov_id', table='salt.tipo_mov', lbl='Tipo Movimento',
+   #                validate_notnull=True, tag='dbselect', hasDownArrow=True)]

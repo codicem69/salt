@@ -16,5 +16,3 @@ class Table(object):
                                                                                     where='$movim_id=:m_id',m_id=movim_id)
                 record['totale_movim'] = totale_movim        
  
-                              
-                                               
