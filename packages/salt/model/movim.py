@@ -6,7 +6,7 @@ class Table(object):
         tbl =  pkg.table('movim',pkey='id',name_long='movimentazione',name_plural='movimentazione',caption_field='descrizione')
         self.sysFields(tbl)
         tbl.column('data',dtype='D',name_long='data_mov')
-        tbl.column('descrizione',name_long='descrizione')
+        tbl.column('descrizione',name_long='descrizione',values='scarico,ammanco,maggior prodotto,carico')
         tbl.column('totale_movim', dtype='I', name_long='totale movimento')
 
     def ricalcolaTotali(self,movim_id=None):
@@ -16,5 +16,3 @@ class Table(object):
                                                                                     where='$movim_id=:m_id',m_id=movim_id)
                 record['totale_movim'] = totale_movim        
  
-                              
-                                               

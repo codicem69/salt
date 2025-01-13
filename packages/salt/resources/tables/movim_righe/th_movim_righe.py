@@ -77,8 +77,19 @@ class ViewFromRighe(BaseComponent):
         r = struct.view().rows()
         r.fieldcell('prodotto_id',hasDownArrow=True, edit=True)
         r.fieldcell('quantita',width='8em', edit=True, validate_notnull=True)
-        r.fieldcell('tipomov_id',validate_notnull=True, edit=True)
+        r.fieldcell('tipomov_cod',validate_notnull=True, edit=True)
         
+    def th_options(self):
+        return dict(dialog_height='400px', dialog_width='600px', defaultPrompt=dict(title='Nuovo movimento', fields=self.newRecParameters(),
+                    doSave=True))
+
+    def newRecParameters(self):
+        return [dict(value='^.tipomov_cod', table='salt.tipo_mov', lbl='Tipo Movimento',
+                    validate_notnull=True, tag='dbselect', hasDownArrow=True),
+                dict(value='^.prodotto_id', table='salt.prodotto', lbl='Prodotto',
+                    validate_notnull=True, tag='dbselect', hasDownArrow=True),
+                    dict(value='^.quantita', lbl='Quantità',dtype='I',tag='numberTextBox',
+                    validate_notnull=True)]
 
 class Form(BaseComponent):
 
@@ -87,8 +98,6 @@ class Form(BaseComponent):
         fb = pane.formbuilder(cols=2, border_spacing='4px')
         fb.field('prodotto_id', hasDownArrow=True )
         fb.field('quantita',validate_notnull=True )
-        fb.field('movim_id',validate_notnull=True )
-
 
     def th_options(self):
         return dict(dialog_height='400px', dialog_width='600px' )
