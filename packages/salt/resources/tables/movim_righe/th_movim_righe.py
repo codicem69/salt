@@ -10,6 +10,7 @@ class View(BaseComponent):
     def th_struct(self,struct):
         r = struct.view().rows()
         r.fieldcell('data')
+        r.fieldcell('deposito_id')
         r.fieldcell('prodotto_id')
         r.fieldcell('quantita',width='7em', totalize=True)
         r.fieldcell('movim_id')
@@ -36,6 +37,7 @@ class ViewMovimentiProd(BaseComponent):
     def th_struct(self,struct):
         r = struct.view().rows()
         r.fieldcell('data')
+        r.fieldcell('deposito_id')
         r.fieldcell('prodotto_id')
         r.fieldcell('quantita',width='7em', totalize=True, zoom=True)
         r.fieldcell('movim_id')
@@ -54,10 +56,10 @@ class ViewMovimentiProd(BaseComponent):
      #   return dict(column='prodotto_id', op='contains', val='')
     
     def th_options(self):
-        return dict(widget='dialog', readOnly=True) 
+        return dict(widget='dialog', readOnly=self.db.application.getPreference('readonly_movim',pkg='salt')) 
     
     def th_top_toolbarsuperiore(self, top):
-        top.slotToolbar('*,sections@prodotto_id,*', childname='superiore', _position='<bar')   
+        top.slotToolbar('*,sections@prodotto_id,20,sections@deposito_id,*', childname='superiore', _position='<bar')   
 
     #def th_queryBySample(self):
     #    return dict(fields=[dict(field='@movim_id.data', lbl='data_mov',width='10em'),
@@ -75,16 +77,17 @@ class ViewFromRighe(BaseComponent):
 
     def th_struct(self, struct):
         r = struct.view().rows()
+        r.fieldcell('deposito_id',hasDownArrow=True, edit=True)
         r.fieldcell('prodotto_id',hasDownArrow=True, edit=True)
-        r.fieldcell('quantita',width='8em', edit=True, validate_notnull=True)
-        r.fieldcell('tipomov_cod',validate_notnull=True, edit=True)
+        r.fieldcell('quantita',width='8em', edit=True, validate_notnull=True, totalize=True)
+        #r.fieldcell('tipomov_cod',validate_notnull=True, edit=True)
         
     def th_options(self):
         return dict(dialog_height='400px', dialog_width='600px', defaultPrompt=dict(title='Nuovo movimento', fields=self.newRecParameters(),
                     doSave=True))
 
     def newRecParameters(self):
-        return [dict(value='^.tipomov_cod', table='salt.tipo_mov', lbl='Tipo Movimento',
+        return [dict(value='^.deposito_id', table='salt.deposito', lbl='!![it]Deposito',
                     validate_notnull=True, tag='dbselect', hasDownArrow=True),
                 dict(value='^.prodotto_id', table='salt.prodotto', lbl='Prodotto',
                     validate_notnull=True, tag='dbselect', hasDownArrow=True),

@@ -3,12 +3,17 @@
 
 class Table(object):
     def config_db(self,pkg):
-        tbl =  pkg.table('movim_righe',pkey='id',name_long='movim_righe',name_plural='movim_righe',caption_field='prodotto_id')
+        tbl =  pkg.table('movim_righe',pkey='id',name_long='movim_righe',name_plural='movim_righe',caption_field='prodotto_id',
+                          totalizer_giacenza_prodotto_deposito='salt.giacenza_prodotto_deposito')
         self.sysFields(tbl)
         tbl.column('movim_id',size='22',name_long='movimentazione').relation('movim.id',relation_name='righemov', mode='foreignkey', onDelete='cascade')
+        tbl.column('deposito_id',size='22', group='_', name_long='!![it]Deposito', batch_assign=True
+                    ).relation('deposito.id', relation_name='deposito', mode='foreignkey', onDelete='raise')
         tbl.column('prodotto_id',size='22',name_long='prodotto',indexed=False).relation('prodotto.id',relation_name='prodmovrig', mode='foreignkey', onDelete='raise')
-        tbl.column('tipomov_cod',size=':1',name_long='tipo mov').relation('tipo_mov.cod',relation_name='tipomovrighe', mode='foreignkey', onDelete='raise')
+        #tbl.column('tipomov_cod',size=':1',name_long='tipo mov').relation('tipo_mov.cod',relation_name='tipomovrighe', mode='foreignkey', onDelete='raise')
         tbl.column('quantita',dtype='I',name_long='Quantità Kg.',name_short='Qt. Kg.')
+        tbl.column('movimento_riga_id',size='22', group='_', name_long='Movimento'
+                    ).relation('movim_righe.id', relation_name='riga_movimento', one_one=True, mode='foreignkey', onDelete='cascade')
         tbl.aliasColumn('data', '@movim_id.data', name_long='data_mov')
         tbl.formulaColumn('somma_carico',select=dict(table='salt.movim_righe',
                                                   columns='SUM($quantita)',
@@ -18,9 +23,9 @@ class Table(object):
                                                   columns='SUM($quantita)',
                                                   where="$prodotto_id=@prodotto_id.id AND @tipomov_cod.cod='c'"),
                                                   dtype='N',name_long='Tot.Scarico Prod.')                                       
-        tbl.formulaColumn('movim_carico',"CASE WHEN (@tipomov_cod.cod='c') THEN ($quantita) ELSE 0 END", 
+        tbl.formulaColumn('movim_carico',"CASE WHEN (@movim_id.@tipomov_cod.verso='c') THEN ($quantita) ELSE 0 END", 
                                                 dtype='N',name_long='Movimentazione Carico')
-        tbl.formulaColumn('movim_scarico',"CASE WHEN (@tipomov_cod.cod='s') THEN ($quantita) ELSE 0 END", 
+        tbl.formulaColumn('movim_scarico',"CASE WHEN (@movim_id.@tipomov_cod.verso='s') THEN ($quantita) ELSE 0 END", 
                                                 dtype='N', name_long='Movimentazione Scarico')                                         
         tbl.formulaColumn('rimanenza',select=dict(table='salt.movim_righe',
                                                   columns='SUM($quantita)',
@@ -50,7 +55,7 @@ class Table(object):
 
     def trigger_onInserting(self, record):
         self.setDefaultValues(record)
-        verso = self.db.table('salt.tipo_mov').readColumns(record['tipomov_cod'], columns='$cod')
+        verso = self.db.table('salt.movim').readColumns(record['movim_id'], columns='$verso')
         segno = (-1) if verso == 's' else 1 
         record['quantita'] = record['quantita'] * segno
 
