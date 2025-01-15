@@ -27,7 +27,7 @@ class View(BaseComponent):
     #def th_query(self):
      #   return dict(column='prodotto_id', op='contains', val='')
     def th_options(self):
-        return dict(widget='dialog', readOnly=True) 
+        return dict(widget='dialog', readOnly=self.db.application.getPreference('readonly_movim',pkg='salt')) 
     def th_top_toolbarsuperiore(self, top):
         top.slotToolbar('*,sections@prodotto_id,*', childname='superiore', _position='<bar')    
 
