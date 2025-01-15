@@ -11,7 +11,7 @@ class View(BaseComponent):
         r = struct.view().rows()
         r.fieldcell('prodotto_id', width='30em')
         r.fieldcell('deposito_id', width='20em')
-        r.fieldcell('quantita', width='10em')
+        r.fieldcell('quantita', width='10em', totalize=True)
 
 
     def th_order(self):
