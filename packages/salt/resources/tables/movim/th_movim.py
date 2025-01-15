@@ -12,7 +12,7 @@ class View(BaseComponent):
         r.fieldcell('data')
         r.fieldcell('tipomov_cod')
         r.fieldcell('descrizione')
-        r.fieldcell('totale_movim')
+        r.fieldcell('totale_movim', format='#,###',totalize=True, dtype='N')
         
     def th_order(self):
         return 'data:d'

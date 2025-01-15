@@ -12,10 +12,10 @@ class View(BaseComponent):
         r.fieldcell('data')
         r.fieldcell('deposito_id')
         r.fieldcell('prodotto_id')
-        r.fieldcell('quantita',width='7em', totalize=True)
+        r.fieldcell('quantita',width='7em', totalize=True, format='#,###')
         r.fieldcell('movim_id')
-        r.fieldcell('movim_carico', totalize=True)
-        r.fieldcell('movim_scarico', totalize=True)
+        r.fieldcell('movim_carico', totalize=True, format='#,###')
+        r.fieldcell('movim_scarico', totalize=True, format='#,###')
 
         r.fieldcell('rimanenza')
         
@@ -39,10 +39,10 @@ class ViewMovimentiProd(BaseComponent):
         r.fieldcell('data')
         r.fieldcell('deposito_id')
         r.fieldcell('prodotto_id')
-        r.fieldcell('quantita',width='7em', totalize=True, zoom=True)
+        r.fieldcell('quantita',width='7em', totalize=True, zoom=True, format='#,###',dtype='N')
         r.fieldcell('movim_id')
-        r.fieldcell('movim_carico', totalize=True)
-        r.fieldcell('movim_scarico', totalize=True)
+        r.fieldcell('movim_carico', totalize=True, format='#,###')
+        r.fieldcell('movim_scarico', totalize=True, format='#,###')
         #r.fieldcell('somma', totalize=True)
         
     def th_order(self):
@@ -79,7 +79,7 @@ class ViewFromRighe(BaseComponent):
         r = struct.view().rows()
         r.fieldcell('deposito_id',hasDownArrow=True, edit=True)
         r.fieldcell('prodotto_id',hasDownArrow=True, edit=True)
-        r.fieldcell('quantita',width='8em', edit=True, validate_notnull=True, totalize=True)
+        r.fieldcell('quantita',width='8em', edit=True, validate_notnull=True, totalize=True, format='#,###')
         #r.fieldcell('tipomov_cod',validate_notnull=True, edit=True)
         
     def th_options(self):
