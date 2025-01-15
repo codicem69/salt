@@ -79,7 +79,7 @@ class ViewFromRighe(BaseComponent):
         r = struct.view().rows()
         r.fieldcell('deposito_id',hasDownArrow=True, edit=True)
         r.fieldcell('prodotto_id',hasDownArrow=True, edit=True)
-        r.fieldcell('quantita',width='8em', edit=True, validate_notnull=True, totalize=True, format='#,###')
+        r.fieldcell('quantita',width='8em', edit=True, validate_notnull=True, totalize=True, format='#,###', dtype='N')
         #r.fieldcell('tipomov_cod',validate_notnull=True, edit=True)
         
     def th_options(self):
