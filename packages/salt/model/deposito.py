@@ -7,7 +7,7 @@ class Table(object):
                                 caption_field='nome', lookup=True)
         self.sysFields(tbl)
         
-        tbl.column('codice', size='7', name_long='!![it]Codice', unmodifiable=True)
+        tbl.column('codice', size='7', name_long='!![it]Codice', unmodifiable=True, dtype='T')
         tbl.column('nome', size=':50', name_long='!![it]Nome')
 
     def trigger_onInserting(self, record):

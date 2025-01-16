@@ -10,9 +10,15 @@ class View(BaseComponent):
         r = struct.view().rows()
         r.fieldcell('cod',width='4em')
         r.fieldcell('descrizione',width='6em')
-        r.fieldcell('tot_carico_prod', totalize=True)
-        r.fieldcell('tot_scarico_prod', totalize=True)
-        r.fieldcell('rimanenza_prod',width='10em', totalize=True)
+        r.fieldcell('tot_carico_prod', totalize=True, format='#,###')
+        r.fieldcell('tot_scarico_prod', totalize=True, format='#,###')
+        depositi = self.db.table('salt.deposito').query().fetch()
+        for deposito in depositi:
+            dep = deposito['id']
+            dep_name = deposito['codice']
+            cset = r.columnset(dep_name, name=dep_name)
+            cset.cell('qta_{dep}'.format(dep=dep), dtype='L', name='Giacenza', width='6em', format='#,###', totalize=True)  
+        #r.fieldcell('rimanenza_prod',width='10em', totalize=True)
         
     def th_order(self):
         return 'cod'
