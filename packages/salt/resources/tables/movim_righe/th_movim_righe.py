@@ -43,6 +43,10 @@ class ViewMovimentiProd(BaseComponent):
         r.fieldcell('movim_id')
         r.fieldcell('movim_carico', totalize=True, format='#,###')
         r.fieldcell('movim_scarico', totalize=True, format='#,###')
+        #r.cell('rimanenza_progressiva',name='!![it]Rimanenza progressiva',formula='somma_carico+somma_scarico',dtype='N',width='15em',
+        #        range_alto='value>0',range_alto_style='color:black;font-weight:bold;',range_basso='value<0',range_basso_style='font-weight:bold;color:red;')
+        r.fieldcell('rimanenza_data',dtype='N',width='15em',
+                range_alto='value>0',range_alto_style='color:black;font-weight:bold;',range_basso='value<0',range_basso_style='font-weight:bold;color:red;')
         #r.fieldcell('somma', totalize=True)
         
     def th_order(self):

@@ -17,11 +17,11 @@ class Table(object):
         tbl.aliasColumn('data', '@movim_id.data', name_long='data_mov')
         tbl.formulaColumn('somma_carico',select=dict(table='salt.movim_righe',
                                                   columns='SUM($quantita)',
-                                                  where="$prodotto_id=@prodotto_id.id AND @tipomov_cod.cod='c'"),
+                                                  where="@prodotto_id.id=#THIS.prodotto_id AND @movim_id.@tipomov_cod.verso='c' AND @movim_id.data<=#THIS.data"),
                                                dtype='N',name_long='Tot.Carico Prod.')
         tbl.formulaColumn('somma_scarico',select=dict(table='salt.movim_righe',
                                                   columns='SUM($quantita)',
-                                                  where="$prodotto_id=@prodotto_id.id AND @tipomov_cod.cod='c'"),
+                                                  where="@prodotto_id.id=#THIS.prodotto_id AND @movim_id.@tipomov_cod.verso='s' AND @movim_id.data<=#THIS.data"),
                                                   dtype='N',name_long='Tot.Scarico Prod.')                                       
         tbl.formulaColumn('movim_carico',"CASE WHEN (@movim_id.@tipomov_cod.verso='c') THEN ($quantita) ELSE 0 END", 
                                                 dtype='N',name_long='Movimentazione Carico')
@@ -29,10 +29,10 @@ class Table(object):
                                                 dtype='N', name_long='Movimentazione Scarico')                                         
         tbl.formulaColumn('rimanenza',select=dict(table='salt.movim_righe',
                                                   columns='SUM($quantita)',
-                                                  where='$prodotto_id=@prodotto_id.id'),# AND $data<=:datatemp',datatemp='2021-03-18'),                                  
+                                                  where='$prodotto_id=@prodotto_id.id'),# AND $data<=:datatemp',datatemp='2021-03-18'),
                                                   dtype='N',name_long='rimanenza')
-        
-        #tbl.formulaColumn('rimanenza','$movim_carico+$movim_scarico') 
+
+        tbl.formulaColumn('rimanenza_data','$somma_carico+$somma_scarico', name_long='Rimanenza per data')
         #tbl.formulaColumn('somma',"""SELECT SUM( "quantita" ) OVER ( PARTITION BY "cod" ORDER BY "data" ) FROM "salt"."salt_movim_righe" "salt_movim_righe", "salt"."salt_movim" "salt_movim", "salt"."salt_prodotto" "salt_prodotto" WHERE "salt_movim_righe"."movim_id" = "salt_movim"."id" AND "salt_movim_righe"."prodotto_id" = "salt_prodotto"."id" ORDER BY "salt_movim"."data" ASC""",
         #                       dtype='N', name_long="scarico progressivo")                                      
         
