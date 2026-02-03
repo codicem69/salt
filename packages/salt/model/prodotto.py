@@ -17,7 +17,7 @@ class Table(object):
                                                   where="$prodotto_id=#THIS.id AND @movim_id.@tipomov_cod.verso='s'"),
                                                dtype='N',name_long='Tot.Scarico Prod.')
         
-        tbl.formulaColumn('rimanenza_prod',"coalesce($tot_carico_prod,0) + coalesce($tot_scarico_prod,0)",dtype='N')
+        tbl.formulaColumn('rimanenza_prod',"coalesce($tot_carico_prod,0) + coalesce($tot_scarico_prod,0)",dtype='N',name_long='Giacenza Prod.')
  
         
     def formulaColumn_giac(self):

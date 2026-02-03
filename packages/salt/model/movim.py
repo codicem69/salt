@@ -64,7 +64,7 @@ class Table(object):
 
             for movimento_riga in movimenti_righe:
                 quantita = movimento_riga['quantita']
-                deposito_id = movimento_riga['deposito_id']
+                #deposito_id = movimento_riga['deposito_id']
                 trasferimento_riga = self.db.table('salt.movim_righe').newrecord(prodotto_id=prodotto_id, 
                                     movim_id=trasferimento['id'], movimento_riga_id=movimento_riga['id'], 
                                     deposito_id=deposito_id, quantita= - (quantita))
