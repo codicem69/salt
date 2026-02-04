@@ -61,8 +61,8 @@ class Form(BaseComponent):
                             disabled='^#FORM.record.@movim.id',
                             ask=dict(title='Genera trasferimento',fields=trasferimento_fields, dlg_width='320px'))
         
-        giroconto_fields=[dict(name='prodotto_id', table='salt.prodotto', lbl='Nuovo Prodotto', tag='dbselect',hasDownArrow=True),
-                          dict(name='deposito_id', table='salt.deposito', lbl='Nuovo Deposito', tag='dbselect',hasDownArrow=True)]
+        giroconto_fields=[dict(name='prodotto_id', table='salt.prodotto', lbl='Nuovo Prodotto', tag='dbselect',hasDownArrow=True,validate_notnull='^.deposito_id'),
+                          dict(name='deposito_id', table='salt.deposito', lbl='Nuovo Deposito', tag='dbselect',hasDownArrow=True,validate_notnull='^.prodotto_id')]
         bar.azioni.button('^.etichetta',  
                             action="PUBLISH trasferimento = {data:data,movimento_id:movimento_id,prodotto_id:prodotto_id,deposito_id:deposito_id,tipomov:tipomov}", 
                             data='=#FORM.record.data',movimento_id='=#FORM.record.id', prodotto_id='=.prodotto_id',deposito_id='=.deposito_id',tipomov='=#FORM.record.tipomov_cod',
